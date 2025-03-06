@@ -6,7 +6,7 @@ import lombok.Data;
 @Data
 @AllArgsConstructor
 public class DataItem {
-    private int dData;
+    private long dData;
 
     public void displayItem() {
         System.out.print("/" + dData);

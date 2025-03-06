@@ -32,16 +32,20 @@ public class Node {
     // Метод связывает узел с потомком
     public void connectChild(int childNum, Node child) {
         childArray[childNum] = child;
-        child.parent = this;
+        if (child != null) {
+            child.parent = this;
+        }
     }
 
     // Метод отсоединяет потомка от узла и возвращает его
-    public void disconnectChild(int childNum) {
+    public Node disconnectChild(int childNum) {
+        Node tempNode = childArray[childNum];
         childArray[childNum] = null;
+        return tempNode;
     }
 
     // Определение индекса элемента в пределах узла (Node) с искомым ключом (key)
-    public int findItem(int key) {
+    public int findItem(long key) {
         for (int j = 0; j < ORDER - 1; j++) {
             if (itemArray[j] == null) {
                 break;
@@ -56,13 +60,13 @@ public class Node {
     // Вставка нового элемента DataItem (предполагается, что узел не пуст)
     public int insertItem(DataItem newItem) {
         numItems++;                                         // Добавляем новый элемент
-        int newKey = newItem.getDData();                    // Вытаскиваем ключ нового элемента
+        long newKey = newItem.getDData();                   // Вытаскиваем ключ нового элемента
 
-        for (int j = ORDER - 2; j >=0; j--) {               // Начинаем цикл справа массива itemArray
+        for (int j = ORDER - 2; j >= 0; j--) {              // Начинаем цикл справа массива itemArray
             if (itemArray[j] == null) {                     // Если ячейка пустая,
                 continue;                                   // переходим на 1 ячейку влево
             } else {
-                int itsKey = itemArray[j].getDData();       // Если нет, получаем ключ ячейки
+                long itsKey = itemArray[j].getDData();      // Если нет, получаем ключ ячейки
                 if (newKey < itsKey) {                      // Если новый ключ больше,
                     itemArray[j + 1] = itemArray[j];        // сдвигаем ячейки вправо
                 } else {
@@ -88,8 +92,8 @@ public class Node {
     public void displayNode() {
         for (int j = 0; j < numItems; j++) {
             itemArray[j].displayItem();                     // Вывод элемента данных в формате "/24"
-            System.out.println("/");                        // Завершающий символ "/"
         }
+        System.out.println("/");                            // Завершающий символ "/"
     }
 
 }
