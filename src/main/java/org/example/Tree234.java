@@ -125,4 +125,20 @@ public class Tree234 {
         }
     }
 
+    // Метод для получения высоты дерева
+    public int height() {
+        Node curNode = root;
+
+        if (root.getNumItems() == 0) {
+            return 0;
+        } else {
+            int height = 1;
+            while (curNode.getChild(0) != null) {
+                curNode = curNode.getChild(0);
+                height++;
+            }
+            return height;
+        }
+    }
+
 }
