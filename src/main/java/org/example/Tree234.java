@@ -112,4 +112,17 @@ public class Tree234 {
         newRight.connectChild(1, child3);              // Связывание child3 с newRight
     }
 
+    // Метод дял получения минимального значения дерева
+    public long getMin() {
+        if (root.getNumItems() == 0) {
+            return 0;
+        } else {
+            Node curNode = root;
+            while (curNode.getChild(0) != null) {
+                curNode = curNode.getChild(0);
+            }
+            return curNode.getItem(0).getDData();
+        }
+    }
+
 }
