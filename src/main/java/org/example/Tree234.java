@@ -141,4 +141,26 @@ public class Tree234 {
         }
     }
 
+    public void recInOrderPrint() {
+        inOrderPrint(root);
+        System.out.println("/");                                 // Завершающий символ "/"
+    }
+
+    // Метод для симметричного обхода дерева
+    private void inOrderPrint(Node root) {
+        if (root != null) {
+            int numItems = root.getNumItems();
+
+            // Рекурсивно обходим левое поддерево
+            inOrderPrint(root.getChild(0));
+
+            // Обходим ключи текущего узла
+            for (int j = 0; j < numItems; j++) {
+                root.getItem(j).displayItem();                   // Выводим ключ
+                inOrderPrint(root.getChild(j + 1));     // Рекурсивно обходим правое поддерево
+            }
+        }
+
+    }
+
 }
