@@ -112,7 +112,7 @@ public class Tree234 {
         newRight.connectChild(1, child3);              // Связывание child3 с newRight
     }
 
-    // Метод дял получения минимального значения дерева
+    // Получение минимального значения дерева
     public long getMin() {
         if (root.getNumItems() == 0) {
             return 0;
@@ -125,7 +125,7 @@ public class Tree234 {
         }
     }
 
-    // Метод для получения высоты дерева
+    // Получение высоты дерева
     public int height() {
         Node curNode = root;
 
@@ -146,7 +146,7 @@ public class Tree234 {
         System.out.println("/");                                 // Завершающий символ "/"
     }
 
-    // Метод для симметричного обхода дерева
+    // Симметричный обход дерева
     private void inOrderPrint(Node root) {
         if (root != null) {
             int numItems = root.getNumItems();
@@ -160,7 +160,41 @@ public class Tree234 {
                 inOrderPrint(root.getChild(j + 1));     // Рекурсивно обходим правое поддерево
             }
         }
+    }
 
+    // Симметричный обход для заполнения массива
+    public void inOrderSort(Node root, long[] sortedArray, int[] index) {
+        if (root != null) {
+            int numItems = root.getNumItems();
+
+            // Рекурсивно обходим левое поддерево
+            inOrderSort(root.getChild(0), sortedArray, index);
+
+            // Обходим ключи текущего узла
+            for (int j = 0; j < numItems; j++) {
+                sortedArray[index[0]] = root.getItem(j).getDData();
+                index[0]++;
+
+                inOrderSort(root.getChild(j + 1), sortedArray, index);
+            }
+        }
+    }
+
+    // Метод для сортировки массива
+    public long[] sort(long[] array) {
+        // Вставляем все элементы массива в дерево
+        for (long key : array) {
+            insert(key);
+        }
+
+        // Создаём массив для отсортированных элементов
+        long[] sortedArray = new long[array.length];
+        int[] index = {0}; // Индекс для заполнения массива
+
+        // Выполняем симметричный обход
+        inOrderSort(root, sortedArray, index);
+
+        return sortedArray;
     }
 
 }
